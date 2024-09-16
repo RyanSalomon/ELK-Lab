@@ -24,43 +24,45 @@ My task will be to examine the network connection logs of this user, find the li
 
 ## Steps
 
-~TASK 1: Determine the number of events returned for March 2022 and identify the IP associated with the suspected user in the logs.
+### Task 1: Identifying Events and Suspected User's IP for March 2022
 
-First, I need to connect to the connection_logs and filter the time range to March 2022.
+Procedure:
 
+1. Connect to the connection_logs and filter the time range to March 2022.
+2. Analyze the logs to find all events during this period.
+   
+Outcome: A total of 1,482 alerts were generated during the specified time frame. Upon further inspection, the suspected user's IP address was identified by clicking on the source_ip in the available fields.
 
-![image](https://github.com/user-attachments/assets/6ae61d35-5393-498b-b576-d3b7a65dba3c) ~connection_logs
-
-
-![image](https://github.com/user-attachments/assets/0285c6e8-d84c-40ff-8228-db69c48264f2)
-
-
-While reviewing the connection logs for the specified time frame, I observed that 1,482 alerts were generated. By clicking on the source_ip in the available fields section, I quickly identified the suspected user's IP address.
-
+Visuals: Connection logs filtered for March 2022.
 
 ![image](https://github.com/user-attachments/assets/585630ec-04cb-4074-9342-34a91ce617ed)
 
 
-~TASK 2: The user’s machine used a legit windows binary to download a file from the C2 server. Find the name of the binary.
+### Task 2: Identifying the Legitimate Binary Used to Download a File from the C2 Server
 
-I applied this filter to retrieve all relevant information on the alerts.
+Procedure:
 
+1. Apply a filter to view alerts associated with the user’s machine and examine the logs for more details.
+2. Investigate the user_agent field to determine the binary used.
+
+Visuals: Log details showing the C2 server connection and the user_agent information.
 
 ![image](https://github.com/user-attachments/assets/c245f2dc-6189-4e31-bcab-5126773c8a04)
 
-
-After clicking on one of the alerts, I was able to view all the necessary information.
-
 ![image](https://github.com/user-attachments/assets/2258b82c-c878-4517-8651-8423419f8e5d)
 
+   
+Outcome: The binary used for the file download was identified as bitsadmin, a legitimate Windows utility often abused by malware authors for malicious activities. The infected host connected to the C2 server hosted on pastebin.com:
 
--The name of the binary is the user_agent: bitsadmin. 
+C2 URL: pastebin.com/yTg0Ah6a
 
--The host 'pastebin.com' is a famous filesharing site, which also acts as a C2 server used by the malware authors to communicate. 
+Additionally, the name of the file accessed on pastebin.com was uncovered during the investigation.
 
--The full URL of the C2 to which the infected host is connected to is the host and the uri: pastebin.com/yTg0Ah6a
+## Conclusion
 
-Lastly, when accessing the filesharing site 'pastebin.com', I found the name of the file that was accessed!
+This project demonstrates effective detection of suspicious events, identification of malicious behavior involving legitimate Windows binaries, and tracking of C2 server communications. Through log analysis and connection tracking, we successfully identified both the suspected user's IP address and the malicious activity carried out via pastebin.com.
+
+
 
 
 
